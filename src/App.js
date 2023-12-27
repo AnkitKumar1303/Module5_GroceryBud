@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
 
-function App() {
+import React, { useState } from 'react';
+import GroceryList from './components/GroceryList';
+import GroceryForm from './components/GroceryForm';
+import './App.css'; // Link external CSS
+
+const App = () => {
+  const [groceries, setGroceries] = useState([]);
+
+  const addToList = (item) => {
+    setGroceries([...groceries, item]);
+  };
+
+  const removeFromList = (index) => {
+    const updatedList = groceries.filter((_, i) => i !== index);
+    setGroceries(updatedList);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <h1>Grocery Bud</h1>
+      <GroceryForm addToList={addToList} />
+      <GroceryList groceries={groceries} removeFromList={removeFromList} />
     </div>
   );
-}
+};
 
 export default App;
+
